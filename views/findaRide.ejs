@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find My Ride</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the page takes at least the full viewport height. */
+        }
+
+        header {
+            background-color: #009688;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        main {
+            background-color: white;
+            padding: 20px 0;
+            text-align: center;
+            flex: 1; /* Fill remaining vertical space. */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        form {
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input[type="date"],
+        .form-group input[type="time"],
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #009688;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #00796b;
+        }
+
+        footer {
+            background-color: #009688;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%; /* Stretch to the full width of the viewport. */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Find a Ride</h1>
+    </header>
+    <main>
+        <div class="container">
+            <form action="/search-rides" method="POST">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="pickup-location">Pickup Location:</label>
+                    <input type="text" id="pickup-location" name="pickupLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="destination">Destination:</label>
+                    <input type="text" id="destination" name="destination" value="Acropolis Institute of Technology and Research" readonly>
+                </div>
+                <button type="submit">Search Rides</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Ride Sharing App. All rights reserved.</p>
+    </footer>
+</body>
+</html>
