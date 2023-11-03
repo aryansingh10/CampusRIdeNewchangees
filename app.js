@@ -225,6 +225,25 @@ app.get('/submit', (req, res) => {
   res.send('Form submission page'); // This is just a placeholder response.
 });
 
+app.get('/payment', isAuthenticated, (req, res) => {
+  res.render('payment', { messages: req.flash() });
+});
+
+
+app.post('/payment', isAuthenticated, (req, res) => {
+
+  const paymentSuccess = true; // Set this based on your logic.
+  
+  if (paymentSuccess) {
+    req.flash('success', 'Payment successful.');
+    res.redirect('/dashboard'); // Redirect to the dashboard or a thank-you page.
+  } else {
+    req.flash('error', 'Payment failed. Please try again.');
+    res.redirect('/payment'); // Redirect back to the payment page with an error message.
+  }
+});
+
+
 
 
 const port = process.env.PORT || 3000;
