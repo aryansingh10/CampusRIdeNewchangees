@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const path = require('path');
+const nodemailer = require('nodemailer');
 
 mongoose.connect('mongodb://127.0.0.1:27017/campus_ride_sharing_app', {
   useNewUrlParser: true,
@@ -33,6 +34,42 @@ app.use(flash());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
+
+// Create a Nodemailer transporter using your email service's SMTP settings
+const transporter = nodemailer.createTransport({
+  service: 'Gmail', // e.g., 'Gmail', 'Yahoo', 'Outlook'
+  auth: {
+    user: 'campusrideee@gmail.com',
+    pass: 'Minor@Sem5',
+  },
+});
+
+
+app.post('/send-booking-email', (req, res) => {
+  // You'll need to replace the following placeholders with actual data
+  const userEmail = 'a9302617722@gmail.com'; // The recipient's email address
+  const rideDetails = 'Details of the booked ride'; // Details of the booked ride
+
+  const mailOptions = {
+    from: 'campusrideee@gmail.com', // Sender's email address
+    to: userEmail,
+    subject: 'Ride Booking Confirmation',
+    text: `Your ride has been booked. ${rideDetails}`,
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+      res.status(500).send('Failed to send booking confirmation email.');
+    } else {
+      console.log('Email sent:', info.response);
+      res.status(200).send('Booking confirmation email sent.');
+    }
+  });
+});
 
 
 app.use((req, res, next) => {
@@ -131,6 +168,7 @@ app.get('/find-a-ride', (req, res) => {
       res.status(500).send('Internal Server Error');
     });
 });
+
 
 app.get('/my-rides', isAuthenticated, (req, res) => {
   Ride.find({ driver: req.user })

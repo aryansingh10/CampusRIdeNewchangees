@@ -5,10 +5,11 @@ const rideSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User' // Reference to the User model
   },
-  source: String,        
+  pickupLocation: String,  
+  time: String,    
   destination: String,   
   date: Date,           
-  availableSeats: Number, 
+ 
 
 });
 

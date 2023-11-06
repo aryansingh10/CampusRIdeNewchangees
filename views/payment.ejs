@@ -161,7 +161,33 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" value="Proceed to Checkout" class="submit-btn">
+            <input type="submit" value="Proceed to Checkout" class="submit-btn" id="checkout-button">
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            const checkoutButton = document.getElementById('checkout-button');
+            checkoutButton.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+                sendBookingConfirmationEmail();
+            });
+
+            function sendBookingConfirmationEmail() {
+                fetch('/send-booking-email', {
+                    method: 'POST',
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        alert('Booking confirmation email sent.');
+                    } else {
+                        alert('Failed to send booking confirmation email. Please try again.');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                });
+            }
+        });
+    </script>
         
     </div>
 </body>
